@@ -4,29 +4,27 @@ module.exports = {
     description: "end a game",
     execute(message,args,client){      
         if(message.channel.name === 'hosttext'){
-            if(message.member.roles.cache.some(role => role.name === 'Game Host')){
+            if(message.member.roles.cache.some(role => role.name === '')){
                 
+                const gamehost = message.guild.roles.cache.find(role => role.name === 'Game Host')
                 const deathrole = message.guild.roles.cache.find(role => role.name === 'Death')
                 const ingamerole = message.guild.roles.cache.find(role => role.name === 'In Game')
                 const inEMrole = message.guild.roles.cache.find(role => role.name === 'Emergency Call')
 
                 const parentchan = message.channel.parentID
                 const thevoicechannel = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == parentchan))
-                
+                message.member.roles.remove(gamehost,'remove role')
                 
                 for (const [memberID, member] of thevoicechannel.members) {
                 
                     console.log('unMuted a member');
     
-                    member.roles.remove(ingamerole,'cool');
-                    member.roles.remove(inEMrole,'cool');
-                    member.roles.remove(deathrole,'cool');
+                    member.roles.remove(ingamerole,'remove role');
+                    member.roles.remove(inEMrole,'remove role');
+                    member.roles.remove(deathrole,'remove role');
                     member.voice.setMute(false);
 
                 }
-                
-                
-                
                 
                 const game = message.channel
                 console.log(parentchan);

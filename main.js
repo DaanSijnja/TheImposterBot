@@ -24,7 +24,7 @@ client.once('ready', () => {
 
 client.on('message', message =>{
     if(!message.content.startsWith(prefix) || message.author.bot){
-        if(message.channel.name === 'create-a-game' || !message.author.bot){
+        if(message.channel.name === 'create-a-game' && !message.author.bot){
             console.log('deleted a message in create a game')
             message.delete({ timeout: 500, reason: 'Delete command.' })
         }
@@ -47,12 +47,12 @@ client.on('message', message =>{
     else  if(command === 'hostgame'){
 
         client.commands.get('hostgame').execute(message,args,client);
-       
+        
     } 
     else  if(command === 'creategame'){
 
         client.commands.get('creategame').execute(message,args,client);
-       
+        
     } 
     else if(command === 'init'){
 
@@ -84,7 +84,10 @@ client.on('message', message =>{
         message.delete({ timeout: 500, reason: 'Delete command.' })
     }
 
-    
+    if(message.channel.name === 'create-a-game' && !message.author.bot){
+        console.log('deleted a message in create a game')
+        message.delete({ timeout: 500, reason: 'Delete command.' })
+    }
 
     
 

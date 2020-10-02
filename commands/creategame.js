@@ -31,7 +31,7 @@ module.exports = {
                     .setTitle('**Welcome to this Game!**')
                     .addField('Game code:','Ask the people in the voice channel for the code')
                     .addField('Commands:','-end this delete this games channels')
-                    .setColor(0x2ECC71)
+                    .setColor(0xF1C40F)
                    
                 texchannel.send(gameinfo);
 

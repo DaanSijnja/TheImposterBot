@@ -10,7 +10,7 @@ module.exports = {
             const playinfo = new Discord.MessageEmbed() 
                     .setTitle('**The game starts again**')
                     .addField('**Do your tasks**','Crewmates do your tasks and Imposters try to kill them all!')
-                    .setColor(0x2ECC71);
+                    .setColor(0x1E8449);
 
             const ingamerole = message.guild.roles.cache.find(role => role.name === 'In Game')
             const inEMrole = message.guild.roles.cache.find(role => role.name === 'Emergency Call')

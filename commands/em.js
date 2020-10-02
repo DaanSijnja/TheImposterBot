@@ -11,7 +11,7 @@ module.exports = {
                     .setTitle('**EMERGENCY MEETING**')
                     .addField('Caller: ',message.author)
                     .addField('Who is sus?','Have a discussion with your fellow players\n and find out who is the imposter (or not)')
-                    .setColor(0x2ECC71);
+                    .setColor(0xA93226);
 
             const ingamerole = message.guild.roles.cache.find(role => role.name === 'In Game')
             const inEMrole = message.guild.roles.cache.find(role => role.name === 'Emergency Call')
