@@ -6,6 +6,8 @@ module.exports = {
 
         const parentchan = message.channel.parentID
         const thevoicechannel = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == parentchan))
+        const textchan = message.channel.id;
+        const textchannel = client.channels.cache.find(channel => channel.id === textchan)
 
         if(message.channel.name === 'hosttext' && message.member.voice.channel === thevoicechannel){
             
@@ -32,20 +34,24 @@ module.exports = {
 
 
 
-              message.channel.send(playinfo);
+              textchannel.send(playinfo);
 
 
         }else{
             if(message.channel.name === 'hosttext' && !(message.member.voice.channel === thevoicechannel)){
                 const errorinfo = new Discord.MessageEmbed() 
                     .setTitle('**Command not send**')
-                    .addField('You cannot send this command here','You cannot send this command here because \n you are not in the voice channel of this hosted game')
+                    .addField('You cannot send this command here','You cannot send this command here because you are not in the voice channel of this hosted game')
                     .setColor(0xA93226);
 
-
+                    textchannel.send(errorinfo).then(msg => {
+                        msg.delete({ timeout: 4000 })
+                      });;
             }
             else{
-                message.channel.send('You cannot send this command here');
+                message.channel.send('You cannot send this command here').then(msg => {
+                    msg.delete({ timeout: 4000 })
+                  });;
             }
         }
 

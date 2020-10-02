@@ -6,12 +6,12 @@ module.exports = {
         
         const parentchan = message.channel.parentID
         const thevoicechannel = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == parentchan))
-
+        const textchan = message.channel.id;
+        const textchannel = client.channels.cache.find(channel => channel.id === textchan)
 
         if(message.channel.name === 'hosttext' && message.member.voice.channel === thevoicechannel){
 
-            const par = message.channel.parent
-            const vcch = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == par))
+            
             const eminfo = new Discord.MessageEmbed() 
                     .setTitle('**EMERGENCY MEETING**')
                     .addField('Caller: ',message.author)
@@ -21,7 +21,7 @@ module.exports = {
             const ingamerole = message.guild.roles.cache.find(role => role.name === 'In Game')
             const inEMrole = message.guild.roles.cache.find(role => role.name === 'Emergency Call')
 
-            for (const [memberID, member] of vcch.members) {
+            for (const [memberID, member] of thevoicechannel.members) {
                 
                 console.log('unMuted a member');
 
@@ -34,19 +34,23 @@ module.exports = {
                 
               }
 
-              message.channel.send(eminfo);
+              textchannel.send(eminfo);
 
         }else{
             if(message.channel.name === 'hosttext' && !(message.member.voice.channel === thevoicechannel)){
                 const errorinfo = new Discord.MessageEmbed() 
                     .setTitle('**Command not send**')
-                    .addField('You cannot send this command here','You cannot send this command here because \n you are not in the voice channel of this hosted game')
+                    .addField('You cannot send this command here','You cannot send this command here because you are not in the voice channel of this hosted game')
                     .setColor(0xA93226);
 
-
+                    textchannel.send(errorinfo).then(msg => {
+                        msg.delete({ timeout: 4000 })
+                      });;
             }
             else{
-                message.channel.send('You cannot send this command here');
+                message.channel.send('You cannot send this command here').then(msg => {
+                    msg.delete({ timeout: 4000 })
+                  });;
             }
             
         }

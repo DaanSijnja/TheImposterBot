@@ -101,7 +101,9 @@ module.exports = {
         
     }
     else{
-        message.channel.send('you dont have permission to use that');
+        message.channel.send('you dont have permission to use that').then(msg => {
+            msg.delete({ timeout: 4000 })
+          });;
 
     }
         

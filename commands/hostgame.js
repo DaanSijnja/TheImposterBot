@@ -63,7 +63,9 @@ module.exports = {
     }
     else{
         
-        message.channel.send('You cannot send this command here');
+        message.channel.send('You cannot send this command here').then(msg => {
+            msg.delete({ timeout: 4000 })
+          });;
     
     }    
 
