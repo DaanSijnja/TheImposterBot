@@ -83,6 +83,11 @@ client.on('message', message =>{
         client.commands.get('em').execute(message,args,client);
         message.delete({ timeout: 500, reason: 'Delete command.' })
     }
+    else if(command === 'lobby'){
+
+        client.commands.get('lobby').execute(message,args,client);
+        message.delete({ timeout: 500, reason: 'Delete command.' })
+    }
 
     if(message.channel.name === 'create-a-game' && !message.author.bot){
         console.log('deleted a message in create a game')
