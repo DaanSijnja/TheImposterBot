@@ -81,6 +81,16 @@ module.exports = {
 
             }
         })
+
+        let lobbyrole = message.guild.roles.create({
+            data:{
+                name: 'In Lobby',
+                color: 0xE67E22,
+                permissions: 3148800,
+                permissions_new: "3148800"
+
+            }
+        })
         
 
         const done = new Discord.MessageEmbed()

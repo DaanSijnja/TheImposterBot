@@ -34,7 +34,7 @@ module.exports = {
                     .setTitle('**Welcome to this Game!**')
                     .addField('Game code:',gamecode)
                     .addField('Game Host:',message.author)
-                    .addField('Commands:','here is a list of commands and what they do: \n **-start**: this starts the game\n **-em**: when a Emergency meeting is called or some one is dead \n **-death**: when youre a ghost\n **-play**: when you start playing again after a meeting \n **-end**: this will delete this channel only the host can use this command')
+                    .addField('Commands:','here is a list of commands and what they do: \n **-lobby**: when you are in the lobby\n **-em**: when a Emergency meeting is called or some one is dead \n **-death**: when youre a ghost\n **-play**: when you start playing again after a meeting \n **-end**: this will delete this channel only the host can use this command')
                     .setColor(0xF1C40F)
                    
                 texchannel.send(gameinfo);
