@@ -15,7 +15,7 @@ module.exports = {
             const deathinfo = new Discord.MessageEmbed() 
                     .setTitle('**Press F for fallen member**')
                     .addField('💀 Dead:',message.author)
-                    .setColor(0x2ECC71);
+                    .setColor(0x666699);
 
             const textchan = message.channel.id;
             const texchannel = client.channels.cache.find(channel => channel.id === textchan)
