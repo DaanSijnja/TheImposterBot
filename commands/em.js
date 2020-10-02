@@ -2,8 +2,13 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'em' ,
     description: "call a emergency meeting",
-    execute(message,args,client){      
-        if(message.channel.name === 'hosttext'){
+    execute(message,args,client){   
+        
+        const parentchan = message.channel.parentID
+        const thevoicechannel = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == parentchan))
+
+
+        if(message.channel.name === 'hosttext' && message.member.voice.channel === thevoicechannel){
 
             const par = message.channel.parent
             const vcch = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == par))
@@ -31,11 +36,19 @@ module.exports = {
 
               message.channel.send(eminfo);
 
-
-
-
         }else{
-            message.channel.send('You cannot send this command here');
+            if(message.channel.name === 'hosttext' && !(message.member.voice.channel === thevoicechannel)){
+                const errorinfo = new Discord.MessageEmbed() 
+                    .setTitle('**Command not send**')
+                    .addField('You cannot send this command here','You cannot send this command here because \n you are not in the voice channel of this hosted game')
+                    .setColor(0xA93226);
+
+
+            }
+            else{
+                message.channel.send('You cannot send this command here');
+            }
+            
         }
 
 

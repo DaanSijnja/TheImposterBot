@@ -4,8 +4,10 @@ module.exports = {
     description: "when youre death",
     execute(message,args,client){      
 
+        const parentchan = message.channel.parentID
+        const thevoicechannel = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == parentchan))
 
-        if(message.channel.name === 'hosttext'){
+        if(message.channel.name === 'hosttext' && message.member.voice.channel === thevoicechannel){
 
 
             const deathrole = message.guild.roles.cache.find(role => role.name === 'Death')
@@ -44,8 +46,17 @@ module.exports = {
             //setChannel(gen)
 
         }else{
+            if(message.channel.name === 'hosttext' && !(message.member.voice.channel === thevoicechannel)){
+                const errorinfo = new Discord.MessageEmbed() 
+                    .setTitle('**Command not send**')
+                    .addField('You cannot send this command here','You cannot send this command here because \n you are not in the voice channel of this hosted game')
+                    .setColor(0xA93226);
 
-            message.channel.send('You cannot send this command here');
+
+            }
+            else{
+                message.channel.send('You cannot send this command here');
+            }
         }
 
 

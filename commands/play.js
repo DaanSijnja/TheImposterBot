@@ -3,10 +3,13 @@ module.exports = {
     name: 'play' ,
     description: "when you play the game",
     execute(message,args,client){      
-        if(message.channel.name === 'hosttext'){
+
+        const parentchan = message.channel.parentID
+        const thevoicechannel = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == parentchan))
+
+        if(message.channel.name === 'hosttext' && message.member.voice.channel === thevoicechannel){
             
-            const par = message.channel.parent
-            const vcch = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == par))
+            
             const playinfo = new Discord.MessageEmbed() 
                     .setTitle('**The game starts again**')
                     .addField('**Do your tasks**','Crewmates do your tasks and Imposters try to kill them all!')
@@ -17,7 +20,7 @@ module.exports = {
             const inlobbyrole = message.guild.roles.cache.find(role => role.name === 'In Lobby')       
             
 
-            for (const [memberID, member] of vcch.members) {
+            for (const [memberID, member] of thevoicechannel.members) {
               
                 console.log('Muted a member');
 
@@ -33,7 +36,17 @@ module.exports = {
 
 
         }else{
-            message.channel.send('You cannot send this command here');
+            if(message.channel.name === 'hosttext' && !(message.member.voice.channel === thevoicechannel)){
+                const errorinfo = new Discord.MessageEmbed() 
+                    .setTitle('**Command not send**')
+                    .addField('You cannot send this command here','You cannot send this command here because \n you are not in the voice channel of this hosted game')
+                    .setColor(0xA93226);
+
+
+            }
+            else{
+                message.channel.send('You cannot send this command here');
+            }
         }
 
 
