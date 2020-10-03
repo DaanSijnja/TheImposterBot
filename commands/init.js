@@ -48,7 +48,7 @@ module.exports = {
 
 
 
-        if(hasCreateAGamechannel == false)
+        //if(hasCreateAGamechannel == false)
         {
             message.guild.channels.create('create-a-game',{
                 type: 'text'
@@ -70,7 +70,7 @@ module.exports = {
         }
 
 
-        if(hasHostedGameschannel == false)
+        //if(hasHostedGameschannel == false)
         {
             message.guild.channels.create('hosted-games',{
                 type: 'text'
