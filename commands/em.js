@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const botConfig = require('../botconfig.json');
+
 module.exports = {
     name: 'em' ,
     description: "call a emergency meeting",
@@ -44,12 +46,12 @@ module.exports = {
                     .setColor(0xA93226);
 
                     textchannel.send(errorinfo).then(msg => {
-                        msg.delete({ timeout: 4000 })
+                        msg.delete({ timeout: botConfig.delete_message_time })
                       });;
             }
             else{
                 message.channel.send('You cannot send this command here').then(msg => {
-                    msg.delete({ timeout: 4000 })
+                    msg.delete({ timeout: botConfig.delete_message_time })
                   });;
             }
             

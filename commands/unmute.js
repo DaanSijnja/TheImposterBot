@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const botConfig = require('../botconfig.json');
 module.exports = {
     name: 'unmute' ,
     description: "unmute when muted",
@@ -13,7 +14,7 @@ module.exports = {
                     .setTitle('✅**You are succesfully unmuted**')
                     .setColor(0x27AE60)
             message.channel.send(info).then(msg => {
-                msg.delete({ timeout: 4000 })
+                msg.delete({ timeout: botConfig.delete_message_time })
               });
         }
         else{
@@ -21,7 +22,7 @@ module.exports = {
                     .setTitle('**You are not muted**')
                     .setColor(0x7B241C)
             message.channel.send(info).then(msg => {
-                msg.delete({ timeout: 4000 })
+                msg.delete({ timeout: botConfig.delete_message_time })
               });
 
         }

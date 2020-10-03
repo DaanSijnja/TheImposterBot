@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const botConfig = require('../botconfig.json');
 module.exports = {
     name: 'end' ,
     description: "end a game",
@@ -14,7 +15,7 @@ module.exports = {
             const inEMrole = message.guild.roles.cache.find(role => role.name === 'Emergency Call')
             const inlobbyrole = message.guild.roles.cache.find(role => role.name === 'In Lobby')     
 
-            if(message.member.roles.cache.some(role => role.name === 'Game Host')){
+            if(message.member.roles.cache.some(role => role.name === 'Game Host') || message.member.roles.cache.some(role => role.name === 'TheImposters Manager')){
                 
                 message.member.roles.remove(gamehost,'remove role')
                 
@@ -63,10 +64,11 @@ module.exports = {
             parent.delete('delete');
             
             
+            
 
         }else{
             message.channel.send('You cannot send this command here').then(msg => {
-                msg.delete({ timeout: 4000 })
+                msg.delete({ timeout: botConfig.delete_message_time })
               });;
         }
 

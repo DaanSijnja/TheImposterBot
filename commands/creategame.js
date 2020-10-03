@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const botConfig = require('../botconfig.json');
 module.exports = {
     name: 'creategame' ,
     description: "create a game",
@@ -53,7 +54,7 @@ module.exports = {
     else{
         
         message.channel.send('You cannot send this command here').then(msg => {
-            msg.delete({ timeout: 4000 })
+            msg.delete({ timeout: botConfig.delete_message_time })
           });;
     
     }    

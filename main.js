@@ -19,7 +19,7 @@ for(const file of commandFiles){
 
 
 client.once('ready', () => {
-    console.log('TheImposter is online')
+    console.log('TheImposter is online V' + botConfig.vers)
 });
 
 client.on('message', message =>{

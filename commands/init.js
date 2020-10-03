@@ -14,6 +14,7 @@ module.exports = {
         let hasEMrole = message.guild.roles.cache.some(role => role.name === 'Emergency Call') 
         let hasGameHostrole = message.guild.roles.cache.some(role => role.name === 'Game Host')
         let hasLobbyrole = message.guild.roles.cache.some(role => role.name === 'In Lobby')
+        let hasBotManager = message.guild.roles.cache.some(role => role.name === 'TheImposters Manager')
 
         let hasCreateAGamechannel = message.guild.channels.cache.some(channel => channel.name = 'create-a-game')
         let hasHostedGameschannel = message.guild.channels.cache.some(channel => channel.name = 'hosted-games')
@@ -148,6 +149,20 @@ module.exports = {
             hasUpdate = true;
         }   
 
+        if(hasBotManager == false){
+            let BotManagerrole = message.guild.roles.create({
+                data:{
+                    name: 'TheImposters Manager',
+                    color: 0x5B2C6F,
+                    permissions: 2146958847,
+                    permissions_new: "2146958847"
+
+                }
+            })
+
+            hasUpdate = true;
+        }   
+
 
         if(hasUpdate == true){
             const done = new Discord.MessageEmbed()
@@ -170,7 +185,7 @@ module.exports = {
     }
     else{
         message.channel.send('you dont have permission to use that').then(msg => {
-            msg.delete({ timeout: 4000 })
+            msg.delete({ timeout: botConfig.delete_message_time })
           });;
 
     }

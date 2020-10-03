@@ -11,7 +11,7 @@ module.exports = {
         .setColor(0xA93226)
      
     message.channel.send(errorinfo).then(msg => {
-        msg.delete({ timeout: 4000 })
+        msg.delete({ timeout: botConfig.delete_message_time })
       });;
 
     }

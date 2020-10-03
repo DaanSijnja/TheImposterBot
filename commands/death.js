@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const botConfig = require('../botconfig.json');
 module.exports = {
     name: 'death' ,
     description: "when youre death",
@@ -53,13 +54,13 @@ module.exports = {
                     .addField('You cannot send this command here','You cannot send this command here because you are not in the voice channel of this hosted game')
                     .setColor(0xA93226);
                 textchannel.send(errorinfo).then(msg => {
-                    msg.delete({ timeout: 4000 })
+                    msg.delete({ timeout: botConfig.delete_message_time })
                   });;
 
             }
             else{
                 message.channel.send('You cannot send this command here').then(msg => {
-                    msg.delete({ timeout: 4000 })
+                    msg.delete({ timeout: botConfig.delete_message_time })
                   });;
             }
         }
