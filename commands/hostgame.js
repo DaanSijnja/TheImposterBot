@@ -4,13 +4,19 @@ module.exports = {
     name: 'hostgame' ,
     description: "create a game",
     execute(message,args,client){       
+    const hostrole = message.guild.roles.cache.find(role => role.name === 'Game Host')
+    const hostedgamechannel = message.guild.channels.cache.find(channel => channel.name === 'hosted-games')
+    console.log(hostedgamechannel);
 
-
-    if(message.channel.name === 'create-a-game'){
+    if(message.channel.name === 'create-a-game' && !(message.member.roles.cache.some(role => role.name === 'Game Host'))){
         const gamecode = message.content.replace('-hostgame','');
         //const deathrole = message.guild.roles.cache.find(role => role.name === 'Death')
         //const ingamerole = message.guild.roles.cache.find(role => role.name === 'InGame')
-        const hostrole = message.guild.roles.cache.find(role => role.name === 'Game Host')
+
+
+
+
+        
         message.member.roles.add(hostrole,'cool');
 
     if(gamecode != '')  {
@@ -46,7 +52,6 @@ module.exports = {
                 type: 'voice'
             }).then((channel) =>{
                 console.log(channel)
-                
                 channel.setParent(parrentchannel)
                 channel.setUserLimit(10)
             })
@@ -54,20 +59,46 @@ module.exports = {
 
         })
 
+        const hostedinfo = new Discord.MessageEmbed() 
+                    .setTitle('**Game Hosted!**')
+                    .addField('Game Host:', message.author)
+                    .addField('Is hosting a game!',' Come and join the game!')
+                    .setColor(0x2980B9)
+        hostedgamechannel.send(hostedinfo)
+
+
+
     }
     else{
-        console.log('error')
-
+        
+        const errorinfo = new Discord.MessageEmbed() 
+                    .setTitle('**You forgot the game code!**')
+                    .setColor(0x7B241C)
+        message.channel.send(errorinfo).then(msg => {
+            msg.delete({ timeout: botConfig.delete_message_time })
+          });
     }
 
 
     }
     else{
         
-        message.channel.send('You cannot send this command here').then(msg => {
+        if(message.member.roles.cache.some(role => role.name === 'Game Host')){
+            const errorinfo = new Discord.MessageEmbed() 
+                    .setTitle('**You already have a game hosted!**')
+                    .addField('You can not host two games at the same time','please end your first game and then you can host a new game')
+                    .setColor(0x7B241C)
+        message.channel.send(errorinfo).then(msg => {
             msg.delete({ timeout: botConfig.delete_message_time })
-          });;
-    
+          });
+
+        }
+        else{
+            message.channel.send('You cannot send this command here').then(msg => {
+                msg.delete({ timeout: botConfig.delete_message_time })
+              });
+        }
+        
     }    
 
  

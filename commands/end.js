@@ -15,7 +15,7 @@ module.exports = {
             const inEMrole = message.guild.roles.cache.find(role => role.name === 'Emergency Call')
             const inlobbyrole = message.guild.roles.cache.find(role => role.name === 'In Lobby')     
 
-            if(message.member.roles.cache.some(role => role.name === 'Game Host') || message.member.roles.cache.some(role => role.name === 'TheImposters Manager')){
+            if((message.member.roles.cache.some(role => role.name === 'Game Host') && message.member.voice.channel === thevoicechannel) || message.member.roles.cache.some(role => role.name === 'TheImposters Manager')){
                 
                 message.member.roles.remove(gamehost,'remove role')
                 
@@ -45,10 +45,27 @@ module.exports = {
                 
 
 
+            }else{
+                if(message.member.roles.cache.some(role => role.name === 'Game Host'))
+                {
+                    message.channel.send('You need to be in the voicechannel to end it').then(msg => {
+                        msg.delete({ timeout: botConfig.delete_message_time })
+                      });
+
+
+
+
+                }
+                else{
+                message.channel.send('You cannot send this command here').then(msg => {
+                    msg.delete({ timeout: botConfig.delete_message_time })
+                  });
+                }
+
             }
             
 
-        }else if(message.channel.name === 'gametext'){
+        } else if(message.channel.name === 'gametext'){
             
             const par = message.channel.parentID
             console.log(par);

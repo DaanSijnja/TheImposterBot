@@ -5,7 +5,21 @@ module.exports = {
     description: "initalize the server for game use",
     execute(message,args,client){
 
-    if(message.member.hasPermission(0x00000008)){
+    let hasBotManager = message.guild.roles.cache.some(role => role.name === 'TheImposters Manager')
+    
+    if(hasBotManager == false){
+        let BotManagerrole = message.guild.roles.create({
+            data:{
+                name: 'TheImposters Manager',
+                color: 0x7D3C98,
+                permissions: 2146958847,
+                permissions_new: "2146958847"
+
+            }
+        })
+    }
+
+    if(message.member.hasPermission(0x00000008) || message.member.roles.cache.some(role => role.name === 'TheImposters Manager')){
 
         let hasUpdate = false;
 
@@ -14,7 +28,7 @@ module.exports = {
         let hasEMrole = message.guild.roles.cache.some(role => role.name === 'Emergency Call') 
         let hasGameHostrole = message.guild.roles.cache.some(role => role.name === 'Game Host')
         let hasLobbyrole = message.guild.roles.cache.some(role => role.name === 'In Lobby')
-        let hasBotManager = message.guild.roles.cache.some(role => role.name === 'TheImposters Manager')
+        
 
         let hasCreateAGamechannel = message.guild.channels.cache.some(channel => channel.name = 'create-a-game')
         let hasHostedGameschannel = message.guild.channels.cache.some(channel => channel.name = 'hosted-games')
@@ -149,19 +163,7 @@ module.exports = {
             hasUpdate = true;
         }   
 
-        if(hasBotManager == false){
-            let BotManagerrole = message.guild.roles.create({
-                data:{
-                    name: 'TheImposters Manager',
-                    color: 0x5B2C6F,
-                    permissions: 2146958847,
-                    permissions_new: "2146958847"
-
-                }
-            })
-
-            hasUpdate = true;
-        }   
+   
 
 
         if(hasUpdate == true){
@@ -171,6 +173,18 @@ module.exports = {
                 .setColor(0x2ECC71)
                 .setFooter('version: ' + botConfig.vers);
             message.channel.send(done);
+
+
+            const feedback = new Discord.MessageEmbed()
+                .setTitle('Help Needed!')
+                .addField('Better translations','My owner **MrBraadworst#8194** made me for this server and he is not very good in englisch so if you find some grammar mistakes please DM him!')
+                .addField('Feedback', 'If you have some feedback you also can DM **MrBraadworst#8194**')
+                .addField('Bugs', 'If you find any bugs please DM **MrBraadworst#8194**')
+                .addField('Thank you everyone!', '@everyone')
+                .setColor(0x2ECC71)
+            message.channel.send(feedback);
+
+
         }
         else
         {
