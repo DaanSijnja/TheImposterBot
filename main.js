@@ -37,11 +37,7 @@ client.on('message', message =>{
     const command = args.shift().toLowerCase();
 
     if(command === 'hello'){
-        const Embed = new Discord.MessageEmbed()
-        .setColor(0xFFC300)
-        .setTitle("hello!");
-
-        message.channel.send(Embed);
+        client.commands.get('hello').execute(message,args,client);
         
     } 
     else  if(command === 'hostgame'){
