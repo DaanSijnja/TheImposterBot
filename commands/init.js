@@ -30,8 +30,8 @@ module.exports = {
         let hasLobbyrole = message.guild.roles.cache.some(role => role.name === 'In Lobby')
         
 
-        let hasCreateAGamechannel = message.guild.channels.cache.some(channel => channel.name = 'create-a-game')
-        let hasHostedGameschannel = message.guild.channels.cache.some(channel => channel.name = 'hosted-games')
+        let hasCreateAGamechannel = client.guild.channels.cache.some(channel => channel.name = 'create-a-game')
+        let hasHostedGameschannel = client.guild.channels.cache.some(channel => channel.name = 'hosted-games')
 
 
         console.log("Deathrole:" + hasDeathrole)
