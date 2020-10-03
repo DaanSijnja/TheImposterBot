@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const botConfig = require('./botconfig.json');
-const theToken = require('./token.json');
+//const theToken = require('./token.json'); alleen nodig voor testen
 const client = new Discord.Client();
 
 const prefix ='-';
