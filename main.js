@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const botConfig = require('./botconfig.json');
-
+const theToken = require('./token.json');
 const client = new Discord.Client();
 
 const prefix ='-';
@@ -96,4 +96,4 @@ client.on('message', message =>{
 });
 
 
-client.login(botConfig.token);
+client.login(theToken.token);
