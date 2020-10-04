@@ -5,7 +5,7 @@ module.exports = {
     description: "help command",
     execute(message,args,client){
 
-
+    if(!(message.channel.name === 'hosttext' || message.channel.name === 'create-a-game' || message.channel.name === 'hosted-games' || message.channel.name === 'gametext')){
 
         const helpinfo = new Discord.MessageEmbed() 
         .setTitle('**Help!!**')
@@ -16,8 +16,14 @@ module.exports = {
         .setFooter('version: ' + botConfig.vers)
         .setColor(0xD35400);
      
-    message.channel.send(helpinfo)
-        
+        message.channel.send(helpinfo)
+    } 
+    else{
+        message.channel.send('You cannot send this command here').then(msg => {
+            msg.delete({ timeout: botConfig.delete_message_time })
+          });;
+    }
+
 
     }
 }

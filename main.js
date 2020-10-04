@@ -102,6 +102,12 @@ client.on('message', message =>{
             message.delete({ timeout: 500, reason: 'Delete command.' })
         break;
 
+        case 'bye':
+            client.commands.get('bye').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+        break;
+
+
     }
 
 

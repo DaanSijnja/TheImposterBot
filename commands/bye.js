@@ -1,10 +1,10 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 const botConfig = require('../botconfig.json');
 module.exports = {
-    name: 'lobby' ,
-    description: "when youre in the lobby with youre friends!",
-    execute(message,args,client){      
-
+    name: 'bye' ,
+    description: "bye command when you leave the Hosted Game",
+    execute(message,args,client){
+       
         const parentchan = message.channel.parentID
         const thevoicechannel = client.channels.cache.find(channel => (channel.name == 'VoiceChannel' && channel.parentID == parentchan))
         const textchan = message.channel.id;
@@ -13,46 +13,40 @@ module.exports = {
         const deathrole = message.guild.roles.cache.find(role => role.name === 'Death')
         const ingamerole = message.guild.roles.cache.find(role => role.name === 'In Game')
         const inEMrole = message.guild.roles.cache.find(role => role.name === 'Emergency Call')
-        const inlobbyrole = message.guild.roles.cache.find(role => role.name === 'In Lobby')      
-        
+        const inlobbyrole = message.guild.roles.cache.find(role => role.name === 'In Lobby')     
 
-        if(message.channel.name === 'hosttext' && message.member.voice.channel === thevoicechannel && message.member.roles.cache.some(role => role.name === 'Game Host')){
-
+        if(message.channel.name === 'hosttext' && message.member.voice.channel === thevoicechannel){
+            
+            message.member.roles.remove(ingamerole,'remove role');
+            message.member.roles.remove(inEMrole,'remove role');
+            message.member.roles.remove(deathrole,'remove role');
+            message.member.roles.remove(inlobbyrole,'remove role');
 
             
-
-            const lobbyinfo = new Discord.MessageEmbed() 
-                    .setTitle('**Lobby Time!**')
-                    .addField('Customize youre Player!','The game will start soon so choose your outfit!')
-                    .setColor(0xE67E22);
+            const byeinfo = new Discord.MessageEmbed() 
+                    .setTitle('**Bye Bye!** 👋')
+                    .addField(message.author.username ,'left this lobby')
+                    .setColor(0x666699);
 
             
-            textchannel.send(lobbyinfo).then(msg => {
-                console.log('delete message lobbyinfo')
+            textchannel.send(byeinfo).then(msg => {
+                console.log('delete message ByeInfo')
                 msg.delete({ timeout: botConfig.hosttext_del, reason: 'Delete command.'})
-              });;
-
-            
-            for (const [memberID, member] of thevoicechannel.members) {
-                
-                console.log('unMuted a member');
-
-                member.roles.remove(ingamerole,'remove role');
-                member.roles.remove(inEMrole,'remove role');
-                member.roles.remove(deathrole,'remove role');
-                member.roles.add(inlobbyrole,'add role');
-                member.voice.setMute(false);
-
-            }
+              });
 
 
-         
-            
-        
 
-       
 
-        }else{
+
+            message.member.voice.setMute(false);
+            message.member.voice.kick('leave the voicechannel')
+
+
+
+    
+        }
+        else{
+
             if(message.channel.name === 'hosttext' && !(message.member.voice.channel === thevoicechannel)){
                 const errorinfo = new Discord.MessageEmbed() 
                     .setTitle('**Command not send**')
@@ -69,7 +63,5 @@ module.exports = {
                   });;
             }
         }
-
-
     }
 }
