@@ -36,7 +36,10 @@ module.exports = {
                 
               }
 
-              textchannel.send(eminfo);
+              textchannel.send(eminfo).then(msg => {
+                console.log('delete message eminfo')
+                msg.delete({ timeout: botConfig.hosttext_del, reason: 'Delete command.'})
+              });
 
         }else{
             if(message.channel.name === 'hosttext' && !(message.member.voice.channel === thevoicechannel)){

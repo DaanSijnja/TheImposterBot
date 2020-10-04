@@ -27,7 +27,10 @@ module.exports = {
                     .setColor(0xE67E22);
 
             
-            textchannel.send(lobbyinfo);
+            textchannel.send(lobbyinfo).then(msg => {
+                console.log('delete message lobbyinfo')
+                msg.delete({ timeout: botConfig.hosttext_del, reason: 'Delete command.'})
+              });;
 
             
             for (const [memberID, member] of thevoicechannel.members) {

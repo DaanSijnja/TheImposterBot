@@ -1,7 +1,8 @@
 {
-    "vers": "1.6.8.3",
+    "vers": "1.7.1.0",
     "delete_message_time": 4000,
-    "hostedgame_delete_message_time": 18000000
+    "hostedgame_delete": 18000000,
+    "hosttext_del": 30000
     
     
 }

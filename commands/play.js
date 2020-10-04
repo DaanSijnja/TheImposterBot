@@ -35,7 +35,10 @@ module.exports = {
 
 
 
-              textchannel.send(playinfo);
+              textchannel.send(playinfo).then(msg => {
+                console.log('delete message playinfo')
+                msg.delete({ timeout: botConfig.hosttext_del, reason: 'Delete command.'})
+              });
 
 
         }else{
@@ -47,12 +50,12 @@ module.exports = {
 
                     textchannel.send(errorinfo).then(msg => {
                         msg.delete({ timeout: botConfig.delete_message_time })
-                      });;
+                      });
             }
             else{
                 message.channel.send('You cannot send this command here').then(msg => {
                     msg.delete({ timeout: botConfig.delete_message_time })
-                  });;
+                  });
             }
         }
 

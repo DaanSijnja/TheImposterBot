@@ -23,7 +23,10 @@ module.exports = {
                     .setColor(0x666699);
 
             
-            textchannel.send(deathinfo);
+            textchannel.send(deathinfo).then(msg => {
+                console.log('delete message DeathInfo')
+                msg.delete({ timeout: botConfig.hosttext_del, reason: 'Delete command.'})
+              });
 
             console.log(deathrole.name)
             //message.member.addRole(role);

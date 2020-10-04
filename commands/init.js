@@ -30,8 +30,8 @@ module.exports = {
         let hasLobbyrole = message.guild.roles.cache.some(role => role.name === 'In Lobby')
         
 
-        let hasCreateAGamechannel = client.channels.cache.some(channel => channel.name = 'create-a-game')
-        let hasHostedGameschannel = client.channels.cache.some(channel => channel.name = 'hosted-games')
+        let hasCreateAGamechannel = message.guild.channels.cache.some(channel => channel.name == 'create-a-game')
+        let hasHostedGameschannel = message.guild.channels.cache.some(channel => channel.name == 'hosted-games')
 
 
         console.log("Deathrole:" + hasDeathrole)
@@ -48,12 +48,12 @@ module.exports = {
 
 
 
-        //if(hasCreateAGamechannel == false)
+        if(hasCreateAGamechannel == false)
         {
             message.guild.channels.create('create-a-game',{
                 type: 'text'
             }).then((channel) =>{
-                console.log(channel)
+               // console.log(channel)
                 const crgame = channel.id;
                 const crgamesend = client.channels.cache.find(channel => channel.id === crgame)
                 const createinfo = new Discord.MessageEmbed() 
@@ -70,12 +70,12 @@ module.exports = {
         }
 
 
-        //if(hasHostedGameschannel == false)
+        if(hasHostedGameschannel == false)
         {
             message.guild.channels.create('hosted-games',{
                 type: 'text'
             }).then((channel) =>{
-                console.log(channel)
+                //console.log(channel)
                 const hostedgame = channel.id;
                 const hostedgamesend = client.channels.cache.find(channel => channel.id === hostedgame)
                 const hostnotificationsinfo = new Discord.MessageEmbed() 
