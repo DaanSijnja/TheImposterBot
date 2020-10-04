@@ -1,11 +1,13 @@
 const Discord = require('discord.js');
 const botConfig = require('./botconfig.json');
-//const theToken = require('./token.json'); alleen nodig voor testen
+//const theToken = require('./token.json'); // alleen nodig voor testen
 const client = new Discord.Client();
 
 const prefix ='-';
 
 const fs = require('fs');
+const { cpuUsage } = require('process');
+const hostgame = require('./commands/hostgame');
 
 client.commands = new Discord.Collection();
 
@@ -36,54 +38,83 @@ client.on('message', message =>{
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if(command === 'hello'){
-        client.commands.get('hello').execute(message,args,client);
-        
-    } 
-    else  if(command === 'hostgame'){
+    switch(command)
+    {
+        case 'hostgame':
+            client.commands.get('hostgame').execute(message,args,client);
 
-        client.commands.get('hostgame').execute(message,args,client);
-        
-    } 
-    else  if(command === 'creategame'){
+        break;
 
-        client.commands.get('creategame').execute(message,args,client);
-        
-    } 
-    else if(command === 'init'){
+        case 'creategame':
+            client.commands.get('creategame').execute(message,args,client);
 
-        client.commands.get('init').execute(message,args,client); 
-        message.delete({ timeout: 500, reason: 'Delete command.' })
-    } 
-    else if(command === 'end'){
+        break;
 
-        client.commands.get('end').execute(message,args,client); 
-    } 
-    else if(command === 'death'){
+        case 'init':
+            client.commands.get('init').execute(message,args,client); 
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+
+        break;
+
+        case 'end':
+            client.commands.get('end').execute(message,args,client); 
+
+        break;
+
+        case 'death':
+            client.commands.get('death').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+
+        break;
+
+        case 'unmute':
+            client.commands.get('unmute').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+
+        break;
+
+        case 'play':
+            client.commands.get('play').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+
+        break;
+
+        case 'em':
+            client.commands.get('em').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+
+        break;
+
+        case 'lobby':
+            client.commands.get('lobby').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+
+        break;
         
-        client.commands.get('death').execute(message,args,client);
-        message.delete({ timeout: 500, reason: 'Delete command.' })
+        case 'update':
+            client.commands.get('update').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+
+        break;
+
+        case 'help':
+            client.commands.get('help').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+        break;
+
+        case 'bye':
+            client.commands.get('bye').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
+        break;
+
+
     }
-    else if(command === 'unmute'){
-        
-        client.commands.get('unmute').execute(message,args,client);
-        message.delete({ timeout: 500, reason: 'Delete command.' })
-    }
-    else if(command === 'play') {
 
-        client.commands.get('play').execute(message,args,client);
-        message.delete({ timeout: 500, reason: 'Delete command.' })
-    }  
-    else if(command === 'em'){
 
-        client.commands.get('em').execute(message,args,client);
-        message.delete({ timeout: 500, reason: 'Delete command.' })
-    }
-    else if(command === 'lobby'){
 
-        client.commands.get('lobby').execute(message,args,client);
-        message.delete({ timeout: 500, reason: 'Delete command.' })
-    }
+
+    
+   
 
     if(message.channel.name === 'create-a-game' && !message.author.bot){
         console.log('deleted a message in create a game')

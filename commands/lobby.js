@@ -27,7 +27,10 @@ module.exports = {
                     .setColor(0xE67E22);
 
             
-            textchannel.send(lobbyinfo);
+            textchannel.send(lobbyinfo).then(msg => {
+                console.log('delete message lobbyinfo')
+                msg.delete({ timeout: botConfig.hosttext_del, reason: 'Delete command.'})
+              });;
 
             
             for (const [memberID, member] of thevoicechannel.members) {
@@ -37,7 +40,7 @@ module.exports = {
                 member.roles.remove(ingamerole,'remove role');
                 member.roles.remove(inEMrole,'remove role');
                 member.roles.remove(deathrole,'remove role');
-                member.roles.add(inlobbyrole,'remove role');
+                member.roles.add(inlobbyrole,'add role');
                 member.voice.setMute(false);
 
             }
