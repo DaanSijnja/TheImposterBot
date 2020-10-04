@@ -98,7 +98,8 @@ client.on('message', message =>{
         break;
 
         case 'help':
-
+            client.commands.get('help').execute(message,args,client);
+            message.delete({ timeout: 500, reason: 'Delete command.' })
         break;
 
     }
